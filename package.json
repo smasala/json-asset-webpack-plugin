@@ -1,0 +1,38 @@
+{
+  "name": "json-asset-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Simple asset to json webpack plugin",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "dist/"
+  ],
+  "scripts": {
+    "prepublish": "babel index.js --out-dir dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "json",
+    "asset",
+    "json-asset-webpack-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smasala/json-asset-webpack-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smasala/json-asset-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/smasala/json-asset-webpack-plugin",
+  "author": "Steven Masala <me@smasala.com> (https://github.com/smasala/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-env": "^1.4.0",
+    "babelify": "^7.3.0"
+  }
+}
