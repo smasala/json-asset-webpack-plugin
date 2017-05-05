@@ -70,11 +70,10 @@ var JSONAssetWebpackPlugin = function () {
         var compilation = _ref.compilation;
 
         var outPath = _path2.default.join(compilation.outputOptions.path || "", _this.config.out);
-        console.info(getChunks(compilation.chunks));
         var assetObj = getChunks(compilation.chunks);
         if (_this.config.chunksSortMode) {
           sortIt(_this.config.chunksSortMode, "js", assetObj.assets);
-          sortIt(_this.config, "css", assetObj.assets);
+          sortIt(_this.config.chunksSortMode, "css", assetObj.assets);
         }
         _fs2.default.writeFileSync(outPath, JSON.stringify(assetObj));
       });
