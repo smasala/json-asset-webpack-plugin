@@ -43,11 +43,10 @@ export default class JSONAssetWebpackPlugin {
   apply(compiler) {
     compiler.plugin("done", ( {compilation} ) => {
         let outPath = path.join(compilation.outputOptions.path || "", this.config.out);
-        console.info(getChunks(compilation.chunks));
         let assetObj = getChunks(compilation.chunks);
         if (this.config.chunksSortMode) {
             sortIt(this.config.chunksSortMode, "js", assetObj.assets);
-            sortIt(this.config, "css", assetObj.assets);
+            sortIt(this.config.chunksSortMode, "css", assetObj.assets);
         }
         fs.writeFileSync(outPath, JSON.stringify(assetObj));
       });
