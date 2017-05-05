@@ -1,6 +1,29 @@
 # Json-Asset-Webpack-Plugin
 Simple asset to json webpack plugin
 
+## Sample Output
+
+```
+ {
+	"assets": {
+		"js": [{
+			"name": "polyfills",
+			"files": ["polyfills.a4a96aebc315cd042a48.bundle.js"]
+		}, {
+			"name": "vendor",
+			"files": ["vendor.a4a96aebc315cd042a48.bundle.js"]
+		}, {
+			"name": "app",
+			"files": ["app.a4a96aebc315cd042a48.bundle.js"]
+		}],
+		"css": [{
+			"name": "app",
+			"files": ["app.09bff5466d500a2adfef92c1c2867e23.css"]
+		}]
+	}
+}
+```
+
 ## Usage
 
 ### Npm Install
