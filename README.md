@@ -49,4 +49,16 @@ new JSONAssetWebpackPlugin( {config: optional} )
     - Function: `Array.sort` https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     - Object: `{ js: Array.sort, css: Array.sort }`
 
+## chunksSortMode example:
+```
+new JSONAssetWebpackPlugin({
+    chunksSortMode: function(a, b) {
+        // thanks to @jantimon https://github.com/jantimon/html-webpack-plugin/issues/140#issuecomment-263927464
+        var order = ["polyfills", "vendor", "app"];
+        return order.indexOf(a.name) - order.indexOf(b.name);
+    }
+})
+
+```
+
 
