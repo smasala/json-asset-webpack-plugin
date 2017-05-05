@@ -46,8 +46,8 @@ new JSONAssetWebpackPlugin( {config: optional} )
 - `config.out` (optional)
     - file name: default: "assets.json"
 - `config.chunksSortMode` (optional)
-    - Function: `Array.sort` https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    - Object: `{ js: Array.sort, css: Array.sort }`
+    - Function: `Array.sort` used to sort both `js` and `css` files https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    - Object: `{ js: Array.sort function (optional), css: Array.sort function (optional) }`
 
 ## chunksSortMode example:
 ```

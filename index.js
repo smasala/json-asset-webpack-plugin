@@ -43,6 +43,14 @@ var getChunks = function getChunks(chunks) {
   };
 };
 
+var sortIt = function sortIt(chunksSortMode, type, assets) {
+  if (typeof chunksSortMode === "function") {
+    assets[type].sort(chunksSortMode);
+  } else if (chunksSortMode[type]) {
+    assets[type].sort(chunksSortMode[type]);
+  }
+};
+
 var JSONAssetWebpackPlugin = function () {
   function JSONAssetWebpackPlugin(config) {
     _classCallCheck(this, JSONAssetWebpackPlugin);
@@ -65,10 +73,8 @@ var JSONAssetWebpackPlugin = function () {
         console.info(getChunks(compilation.chunks));
         var assetObj = getChunks(compilation.chunks);
         if (_this.config.chunksSortMode) {
-          assetObj.assets.js.sort(typeof _this.config.chunksSortMode === "function" ? _this.config.chunksSortMode : _this.config.chunksSortMode.js);
-          if (_this.config.chunksSortMode.css) {
-            assetObj.assets.css.sort(_this.config.chunksSortMode.css);
-          }
+          sortIt(_this.config.chunksSortMode, "js", assetObj.assets);
+          sortIt(_this.config, "css", assetObj.assets);
         }
         _fs2.default.writeFileSync(outPath, JSON.stringify(assetObj));
       });

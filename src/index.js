@@ -23,6 +23,14 @@ let getChunks = (chunks) => {
   }
 }
 
+let sortIt = (chunksSortMode, type, assets) => {
+  if (typeof chunksSortMode === "function") {
+    assets[type].sort(chunksSortMode);
+  } else if (chunksSortMode[type]) {
+    assets[type].sort(chunksSortMode[type]);
+  }
+}
+
 export default class JSONAssetWebpackPlugin {
 
   constructor(config) {
@@ -38,12 +46,8 @@ export default class JSONAssetWebpackPlugin {
         console.info(getChunks(compilation.chunks));
         let assetObj = getChunks(compilation.chunks);
         if (this.config.chunksSortMode) {
-            assetObj.assets.js.sort(
-              typeof this.config.chunksSortMode === "function" ? this.config.chunksSortMode : this.config.chunksSortMode.js
-            );
-            if (this.config.chunksSortMode.css) {
-                assetObj.assets.css.sort(this.config.chunksSortMode.css);
-            }
+            sortIt(this.config.chunksSortMode, "js", assetObj.assets);
+            sortIt(this.config, "css", assetObj.assets);
         }
         fs.writeFileSync(outPath, JSON.stringify(assetObj));
       });
