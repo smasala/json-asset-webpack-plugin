@@ -22,13 +22,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var getChunks = function getChunks(chunks) {
+var getChunks = function getChunks(chunks, publicPath) {
   var mapper = function mapper(arr, ext) {
     return arr.map(function (chunk) {
       return {
         name: chunk.name,
         files: chunk.files.filter(function (file) {
           return _path2.default.extname(file) === ext;
+        }).map(function (file) {
+          return publicPath + file;
         })
       };
     }).filter(function (item) {
@@ -56,7 +58,10 @@ var JSONAssetWebpackPlugin = function () {
     _classCallCheck(this, JSONAssetWebpackPlugin);
 
     this.defaultConfig = {
-      out: "assets.json"
+      out: "assets.json",
+      beforeWrite: function beforeWrite(outPath, assetObj, callback) {
+        callback(outPath, assetObj);
+      }
     };
     this.config = _lodash2.default.extend(this.defaultConfig, config);
   }
@@ -70,12 +75,14 @@ var JSONAssetWebpackPlugin = function () {
         var compilation = _ref.compilation;
 
         var outPath = _path2.default.join(compilation.outputOptions.path || "", _this.config.out);
-        var assetObj = getChunks(compilation.chunks);
+        var assetObj = getChunks(compilation.chunks, compilation.outputOptions.publicPath || "");
         if (_this.config.chunksSortMode) {
           sortIt(_this.config.chunksSortMode, "js", assetObj.assets);
           sortIt(_this.config.chunksSortMode, "css", assetObj.assets);
         }
-        _fs2.default.writeFileSync(outPath, JSON.stringify(assetObj));
+        _this.config.beforeWrite(outPath, assetObj, function (out, assets) {
+          _fs2.default.writeFileSync(out, JSON.stringify(assets));
+        });
       });
     }
   }]);

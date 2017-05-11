@@ -18,7 +18,8 @@ describe("JSONAssetWebpackPlugin", () => {
         let plugin = new JSONAssetWebpackPlugin();
         expect(plugin).toBeDefined();
         expect(plugin.config).toEqual({
-            out: "assets.json"
+            out: "assets.json",
+            beforeWrite: jasmine.any(Function)
         });
     });
 
@@ -172,6 +173,26 @@ describe("JSONAssetWebpackPlugin", () => {
                 } 
             });
         })
+        plugin.apply(MOCK_COMPILER);
+    });
+
+    it("before write callback", () => {
+        let plugin = new JSONAssetWebpackPlugin({
+            chunksSortMode: CHUNK_SORTER,
+            beforeWrite: (out, assets, callback) => {
+                out = "bob.json";
+                assets = {
+                    a: "hello"
+                };
+                callback(out, assets);
+            }
+        });
+        spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
+            expect(path).toBe("bob.json");
+            expect(jsonString).toBe(JSON.stringify({
+                a: "hello"
+            }));
+        });
         plugin.apply(MOCK_COMPILER);
     });
 

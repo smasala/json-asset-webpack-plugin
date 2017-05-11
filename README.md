@@ -48,6 +48,7 @@ new JSONAssetWebpackPlugin( {config: optional} )
 - `config.chunksSortMode` (optional)
     - Function: `Array.sort` used to sort both `js` and `css` files https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     - Object: `{ js: Array.sort function (optional), css: Array.sort function (optional) }`
+- `config.beforeWrite` (optional)
 
 ## chunksSortMode example:
 ```
@@ -58,7 +59,15 @@ new JSONAssetWebpackPlugin({
         return order.indexOf(a.name) - order.indexOf(b.name);
     }
 })
-
 ```
 
+## beforeWrite example:
+```
+new JSONAssetWebpackPlugin({
+    beforeWrite: function(outPath, assetsObj, callback) {
+        // manipulate outPath/assetsObj if needed
+        callback(outPath, assetsObj);	// must be called to write the file
+    }
+})
+```
 

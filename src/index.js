@@ -2,13 +2,15 @@ import fs from "fs";
 import path from "path";
 import _ from "lodash";
 
-let getChunks = (chunks) => {
+let getChunks = (chunks, publicPath) => {
   let mapper = (arr, ext) => {
       return arr.map((chunk) => {
           return {
             name: chunk.name,
             files: chunk.files.filter((file) => {
                 return path.extname(file) === ext;
+            }).map((file) => {
+                return publicPath + file;
             })
           }
     }).filter((item) => {
@@ -35,7 +37,10 @@ export default class JSONAssetWebpackPlugin {
 
   constructor(config) {
     this.defaultConfig = {
-      out: "assets.json"
+      out: "assets.json",
+      beforeWrite: (outPath, assetObj, callback) => {
+          callback(outPath, assetObj);
+      }
     }
     this.config = _.extend(this.defaultConfig, config);
   }
@@ -43,12 +48,14 @@ export default class JSONAssetWebpackPlugin {
   apply(compiler) {
     compiler.plugin("done", ( {compilation} ) => {
         let outPath = path.join(compilation.outputOptions.path || "", this.config.out);
-        let assetObj = getChunks(compilation.chunks);
+        let assetObj = getChunks(compilation.chunks, compilation.outputOptions.publicPath || "");
         if (this.config.chunksSortMode) {
             sortIt(this.config.chunksSortMode, "js", assetObj.assets);
             sortIt(this.config.chunksSortMode, "css", assetObj.assets);
         }
-        fs.writeFileSync(outPath, JSON.stringify(assetObj));
+        this.config.beforeWrite(outPath, assetObj, (out, assets) => {
+          fs.writeFileSync(out, JSON.stringify(assets));
+        });
       });
   }
 }
