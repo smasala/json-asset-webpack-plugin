@@ -50,7 +50,7 @@ new JSONAssetWebpackPlugin( {config: optional} )
     - Object: `{ js: Array.sort function (optional), css: Array.sort function (optional) }`
 - `config.beforeWrite` (optional)
 
-## chunksSortMode example:
+#### chunksSortMode example:
 ```
 new JSONAssetWebpackPlugin({
     chunksSortMode: function(a, b) {
@@ -61,7 +61,7 @@ new JSONAssetWebpackPlugin({
 })
 ```
 
-## beforeWrite example:
+#### beforeWrite example:
 ```
 new JSONAssetWebpackPlugin({
     beforeWrite: function(outPath, assetsObj, callback) {
