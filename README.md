@@ -76,5 +76,6 @@ new JSONAssetWebpackPlugin({
 
 - fork this repository
 - add changes
+- add/modify tests (index.spec or similar)
 - run `npm test` (all green)
 - create pull request
