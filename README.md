@@ -44,11 +44,13 @@ new JSONAssetWebpackPlugin( {config: optional} )
 ### Configuration
 
 - `config.out` (optional)
-    - file name: default: "assets.json"
+    - string: default: "assets.json"
 - `config.chunksSortMode` (optional)
     - Function: `Array.sort` used to sort both `js` and `css` files https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     - Object: `{ js: Array.sort function (optional), css: Array.sort function (optional) }`
 - `config.beforeWrite` (optional)
+	- Function `(outPath, assetsObj, callback)`
+		- callback must be called with 2 arguments `(outPath, assetsObj)` within `beforeWrite()` in order for the plugin to write assets file;
 
 #### chunksSortMode example:
 ```
@@ -70,4 +72,9 @@ new JSONAssetWebpackPlugin({
     }
 })
 ```
+## Contributions
 
+- fork this repository
+- add changes
+- run `npm test` (all green)
+- create pull request
