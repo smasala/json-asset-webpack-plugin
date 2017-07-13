@@ -18,6 +18,10 @@ var _lodash = require("lodash");
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _fsPath = require("fs-path");
+
+var _fsPath2 = _interopRequireDefault(_fsPath);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81,7 +85,7 @@ var JSONAssetWebpackPlugin = function () {
           sortIt(_this.config.chunksSortMode, "css", assetObj.assets);
         }
         _this.config.beforeWrite(outPath, assetObj, function (out, assets) {
-          _fs2.default.writeFileSync(out, JSON.stringify(assets));
+          _fsPath2.default.writeFileSync(out, JSON.stringify(assets));
         });
       });
     }
