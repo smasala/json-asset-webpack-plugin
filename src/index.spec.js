@@ -1,5 +1,6 @@
 import JSONAssetWebpackPlugin from "./index";
 import fs from "fs";
+import path from "path";
 
 describe("JSONAssetWebpackPlugin", () => {
 
@@ -8,6 +9,10 @@ describe("JSONAssetWebpackPlugin", () => {
             return OUT_ORDER.indexOf(a.name) - OUT_ORDER.indexOf(b.name);
         };
     let MOCK_COMPILER;
+    // root dir: 
+    // from:    "{somepath}/json-asset-webpack-plugin/src"
+    // to:      "{somepath}/json-asset-webpack-plugin/"
+    const rootPath = __dirname.replace(path.sep + "src", path.sep);
 
     beforeEach(function() {
         // retrieve from compiler.js helper
@@ -39,7 +44,7 @@ describe("JSONAssetWebpackPlugin", () => {
             out: "abc.json"
         });
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("abc.json");
+            expect(path).toBe(rootPath + "abc.json");
             expect(jsonString).toBeDefined();
             expect(jsonString).not.toBeNull();
         })
@@ -49,7 +54,7 @@ describe("JSONAssetWebpackPlugin", () => {
     it("get assets", () => {
         let plugin = new JSONAssetWebpackPlugin();
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("assets.json");
+            expect(path).toBe(rootPath + "assets.json");
             expect(jsonString).toBeDefined();
             expect(JSON.parse(jsonString)).toEqual({
                 assets: {
@@ -83,7 +88,7 @@ describe("JSONAssetWebpackPlugin", () => {
             }
         });
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("assets.json");
+            expect(path).toBe(rootPath + "assets.json");
             expect(jsonString).toBeDefined();
             expect(JSON.parse(jsonString)).toEqual({
                 assets: {
@@ -117,7 +122,7 @@ describe("JSONAssetWebpackPlugin", () => {
             }
         });
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("assets.json");
+            expect(path).toBe(rootPath + "assets.json");
             expect(jsonString).toBeDefined();
             expect(JSON.parse(jsonString)).toEqual({
                 assets: {
@@ -149,7 +154,7 @@ describe("JSONAssetWebpackPlugin", () => {
             chunksSortMode: CHUNK_SORTER
         });
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("assets.json");
+            expect(path).toBe(rootPath + "assets.json");
             expect(jsonString).toBeDefined();
             expect(JSON.parse(jsonString)).toEqual({
                 assets: {
@@ -188,7 +193,7 @@ describe("JSONAssetWebpackPlugin", () => {
             }
         });
         spyOn(fs, "writeFileSync").and.callFake((path, jsonString) => {
-            expect(path).toBe("bob.json");
+            expect(path).toBe(rootPath + "bob.json");
             expect(jsonString).toBe(JSON.stringify({
                 a: "hello"
             }));

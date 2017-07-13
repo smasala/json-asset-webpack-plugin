@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import _ from "lodash";
+import fsPath from "fs-path";
 
 let getChunks = (chunks, publicPath) => {
   let mapper = (arr, ext) => {
@@ -54,7 +55,7 @@ export default class JSONAssetWebpackPlugin {
             sortIt(this.config.chunksSortMode, "css", assetObj.assets);
         }
         this.config.beforeWrite(outPath, assetObj, (out, assets) => {
-          fs.writeFileSync(out, JSON.stringify(assets));
+          fsPath.writeFileSync(out, JSON.stringify(assets));
         });
       });
   }

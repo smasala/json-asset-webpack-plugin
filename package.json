@@ -34,5 +34,9 @@
     "babel-preset-env": "^1.4.0",
     "babelify": "^7.3.0",
     "jasmine": "^2.6.0"
+  },
+  "dependencies": {
+    "fs-path": "0.0.23",
+    "lodash": "^4.17.4"
   }
 }
