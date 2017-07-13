@@ -1,4 +1,4 @@
-# Json-Asset-Webpack-Plugin
+# Json-Asset-Webpack-Plugin [![Build Status](https://travis-ci.org/smasala/json-asset-webpack-plugin.svg?branch=master)](https://travis-ci.org/smasala/json-asset-webpack-plugin)
 Simple asset to json webpack plugin
 
 ## Sample Output
