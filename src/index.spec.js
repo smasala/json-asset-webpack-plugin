@@ -12,7 +12,7 @@ describe("JSONAssetWebpackPlugin", () => {
     // root dir: 
     // from:    "{somepath}/json-asset-webpack-plugin/src"
     // to:      "{somepath}/json-asset-webpack-plugin/"
-    const rootPath = __dirname.replace(path.sep + "src", path.sep);
+    const rootPath = __dirname.replace(path.sep + "src", path.sep).replace("C:\\", "c:\\");
 
     beforeEach(function() {
         // retrieve from compiler.js helper
